@@ -57,7 +57,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     public Book updateBook(@PathVariable Long id, @RequestBody Book book){
-        if(book.getId() != id){
+        if(!book.getBookId().equals(id)){
             throw new HttpClientErrorException(HttpStatusCode.valueOf(400), "Id in the path and body are different");
         }
         bookRepository.findById(id)
