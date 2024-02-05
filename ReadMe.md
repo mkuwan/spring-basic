@@ -1,3 +1,3 @@
 # spring bootの基本
-- thymeleafを使ってMVCを実装しています
+- 図書館の蔵書管理、貸出管理を例として、spring bootの基本を学ぶ。
 - 

@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Component
 public class AppCommandLineRunner implements CommandLineRunner {
 
@@ -27,6 +29,7 @@ public class AppCommandLineRunner implements CommandLineRunner {
             // サンプルデータ作成
             for (int i = 0; i < 20; i++) {
                 Book book = new Book();
+                book.setBookId(UUID.randomUUID().toString());
                 book.setTitle("title" + (i + 1));
                 book.setAuthor("author" + (i + 1));
                 bookRepository.save(book);
