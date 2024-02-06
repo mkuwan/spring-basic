@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends CrudRepository<Book, String> {
-    List<Book> findByTitle(String title);
+    Book getBookByBookId(String bookId);
+
 }

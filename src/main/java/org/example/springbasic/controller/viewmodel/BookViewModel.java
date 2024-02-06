@@ -1,14 +1,12 @@
 package org.example.springbasic.controller.viewmodel;
 
-import jakarta.persistence.Column;
-
 import java.io.Serializable;
 
 /**
  * BookViewModel(表示用ビューモデル)クラス
  */
-public class BookViewModel implements Serializable {
-    private String BookId;
+public class BookViewModel {
+    private String bookId;
 
     /**
      * タイトル
@@ -70,91 +68,109 @@ public class BookViewModel implements Serializable {
      */
     private Integer amount;
 
-    public String getBookId() {
-        return BookId;
-    }
+    /**
+     * 貸出可否
+     * The book can be rented or not.
+     */
+    private Boolean canRent = false;
 
-    public void setBookId(String bookId) {
-        BookId = bookId;
+
+    public String getBookId() {
+        return bookId;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getTitleKana() {
         return titleKana;
-    }
-
-    public void setTitleKana(String titleKana) {
-        this.titleKana = titleKana;
     }
 
     public String getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
     public String getSeries() {
         return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getPublisher() {
         return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
     }
 
     public Integer getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(Integer publishYear) {
-        this.publishYear = publishYear;
-    }
-
     public String getSizeInfo() {
         return sizeInfo;
-    }
-
-    public void setSizeInfo(String sizeInfo) {
-        this.sizeInfo = sizeInfo;
     }
 
     public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public Integer getAmount() {
         return amount;
     }
 
+    public Boolean getCanRent() {
+        return canRent;
+    }
+
+
+
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setTitleKana(String titleKana) {
+        this.titleKana = titleKana;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setPublishYear(Integer publishYear) {
+        this.publishYear = publishYear;
+    }
+
+    public void setSizeInfo(String sizeInfo) {
+        this.sizeInfo = sizeInfo;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public void setCanRent(Boolean canRent) {
+        this.canRent = canRent;
     }
 }

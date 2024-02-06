@@ -27,11 +27,12 @@ public class AppCommandLineRunner implements CommandLineRunner {
 
         try {
             // サンプルデータ作成
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 5; i++) {
                 Book book = new Book();
                 book.setBookId(UUID.randomUUID().toString());
                 book.setTitle("title" + (i + 1));
                 book.setAuthor("author" + (i + 1));
+                book.setAmount(i);
                 bookRepository.save(book);
             }
         } catch (Exception e) {

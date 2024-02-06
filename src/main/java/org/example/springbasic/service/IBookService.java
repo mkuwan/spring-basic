@@ -11,21 +11,21 @@ public interface IBookService {
 
     BookModel getBook(String bookId);
 
-    void addBook(BookModel bookModel);
+    BookModel addBook(BookModel bookModel) throws Exception;
 
-    void deleteBook(String bookId);
+    void deleteBook(String bookId) throws Exception;
 
-    void updateBook(String bookId, BookModel bookModel);
+    BookModel updateBook(String bookId, BookModel bookModel) throws Exception;
 
-    List<BookModel> getBookByTitle(String title, String titleKana);
-
-    List<BookModel> getBookByAuthor(String author);
-
-    List<BookModel> getBookByPublisher(String publisher);
-
-    List<BookModel> getBookByPublishYear(Integer publishYear);
-
-    BookModel getBookByIsbn(String isbn);
+//    List<BookModel> getBookByTitle(String title, String titleKana);
+//
+//    List<BookModel> getBookByAuthor(String author);
+//
+//    List<BookModel> getBookByPublisher(String publisher);
+//
+//    List<BookModel> getBookByPublishYear(Integer publishYear);
+//
+//    BookModel getBookByIsbn(String isbn);
 
 
 }
