@@ -8,6 +8,7 @@
 ```bash
 // voltaでnodeをインストール
 volta install node@latest
+volta install node stable
 
 // インストールされているnodeのリストを取得
 volta list node
