@@ -149,8 +149,24 @@ class BookServiceTest {
             // BookRepository.findAll()が呼ばれたこと
             verify(bookRepository, times(1)).findAll();
         } catch (Exception e) {
-//            e.printStackTrace();
+            // printStackTraceとSystem.out.println(e.getMessage())の違い
+            // printStackTraceはエラーの詳細を出力する：エラーの原因や発生箇所など
+            // System.out.println(e.getMessage())はエラーのメッセージのみを出力する
+
+
+            System.out.println("e.printStackTrace()の場合の出力結果");
+            e.printStackTrace();
+
+
+            System.out.println("System.out.printlnの場合の出力結果");
             System.out.println(e.getMessage());
+            // 以下のエラーが出力される
+//            Argument passed to verify() is of type $Proxy114 and is not a mock!
+//            Make sure you place the parenthesis correctly!
+//            See the examples of correct verifications:
+//              verify(mock).someMethod();
+//              verify(mock, times(10)).someMethod();
+//              verify(mock, atLeastOnce()).someMethod();
         }
 
     }
