@@ -6,12 +6,15 @@ import org.example.springbasic.service.model.BookModel;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
 
 @Service
 public class BookService implements IBookService{
@@ -36,6 +39,8 @@ public class BookService implements IBookService{
                 .forEach(x -> {
                     logger.info("BookModel: " + x.getTitle());
                     BookModel bookModel = modelMapper.map(x, BookModel.class);
+
+                    // 以下のコードは、ModelMapperを使わない場合のコード
 //                    BookModel bookModel = new BookModel(x.getBookId(),
 //                            x.getTitle(),
 //                            x.getTitleKana(),
@@ -48,6 +53,7 @@ public class BookService implements IBookService{
 //                            x.getIsbn(),
 //                            x.getAmount(),
 //                            x.getCanRent());
+
                     books.add(bookModel);
                 });
         return books;

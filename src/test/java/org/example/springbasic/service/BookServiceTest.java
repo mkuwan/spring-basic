@@ -3,12 +3,15 @@ package org.example.springbasic.service;
 import org.example.springbasic.repository.entity.Book;
 import org.example.springbasic.repository.jpa.BookRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -19,8 +22,15 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+
+//@ContextConfiguration(classes = {BookService.class, BookRepository.class})  // このクラスのテストで使用するコンポーネントを指定
+@SpringBootTest // Spring Bootのアプリケーションコンテキストをロード
 class BookServiceTest {
+
+//        Assertions.assertThrows(Exception.class, () -> {
+//            throw new Exception("test");
+//        });
+
 
     @Mock
     private BookRepository bookRepositoryMock;
@@ -28,6 +38,11 @@ class BookServiceTest {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @BeforeEach
+    void setUp() {
+        bookRepository.deleteAll();
+    }
 
 
     /**
@@ -75,9 +90,6 @@ class BookServiceTest {
         }
         // BookRepository.findAll()が呼ばれたこと
         verify(bookRepositoryMock, times(1)).findAll();
-        Assertions.assertThrows(Exception.class, () -> {
-            throw new Exception("test");
-        });
     }
 
 
@@ -121,11 +133,25 @@ class BookServiceTest {
         // BookModelのリストの要素数が5であること
         assertEquals(5, result.size());
         // BookModelのリストの各要素のtitleが"テストタイトル" + iであること
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < result.size(); i++) {
             assertEquals("テストタイトル" + i, result.get(i).getTitle());
         }
-        // BookRepository.findAll()が呼ばれたこと
-        verify(bookRepository, times(1)).findAll();
+
+
+        // verifyはmockを使わない場合は、呼ばれた回数を検証することができないためエラーになる
+        // assertThrowsで例外をキャッチする使い方は、以下のようになる
+        Assertions.assertThrows(Exception.class, () -> {
+            // BookRepository.findAll()が呼ばれたこと
+            verify(bookRepository, times(1)).findAll();
+        });
+
+        try {
+            // BookRepository.findAll()が呼ばれたこと
+            verify(bookRepository, times(1)).findAll();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
 
     }
 
