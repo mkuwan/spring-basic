@@ -248,7 +248,7 @@ class BookServiceTest {
 //     * 期待値: BookRepository.save()が1回だけ呼ばれたこと
      */
     @Test
-    void addBook_success() throws Exception {
+    void addBook_success_by_yamaguchi() throws Exception {
 
     }
 
@@ -266,7 +266,48 @@ class BookServiceTest {
 //     * 期待値: BookRepository.save()が0回呼ばれたこと
      */
     @Test
-    void addBook_existedBookId_returnException() {
+    void addBook_existedBookId_returnException_by_yamaguchi() {
+
+    }
+
+
+    /**
+     * 正常系
+     * BookService.addBook()のテスト
+     * 既存のデータなし
+     * 期待値: BookModelが返却されること
+     * 期待値: 返却されたBookModelのbookIdが"test-id-add002"であること
+     * 期待値: 返却されたBookModelのtitleが"テスト書籍Add002"であること
+     * 期待値: 返却されたBookModelのpublishYearが2022であること
+     * 期待値: DBに登録されたBookModelのbookIdが"test-id-add002"であること
+     * 期待値: DBに登録されたBookModelのtitleが"テスト書籍Add002"であること
+     * 期待値: DBに登録されたBookModelのpublishYearが2022であること
+     //     * 以下はモックを使わないとテストできない
+     //     * 期待値: BookRepository.findById()が呼ばれたこと
+     //     * 期待値: BookRepository.findById()が1回だけ呼ばれたこと
+     //     * 期待値: BookRepository.save()が呼ばれたこと
+     //     * 期待値: BookRepository.save()が1回だけ呼ばれたこと
+     */
+    @Test
+    void addBook_success_by_nakano() throws Exception {
+
+    }
+
+
+    /**
+     * 異常系
+     * BookService.addBook()のテスト
+     * 既存のbookIdを持つBookModelを追加しようとした場合
+     * 期待値: 例外が発生すること
+     * 期待値: 例外のメッセージが"bookId is already exists"であること
+     //     * 以下はモックを使わないとテストできない
+     //     * 期待値: BookRepository.findById()が呼ばれたこと
+     //     * 期待値: BookRepository.findById()が1回だけ呼ばれたこと
+     //     * 期待値: BookRepository.save()が呼ばれないこと
+     //     * 期待値: BookRepository.save()が0回呼ばれたこと
+     */
+    @Test
+    void addBook_existedBookId_returnException_by_nakano() {
 
     }
 
