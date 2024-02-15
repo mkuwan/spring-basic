@@ -2,6 +2,7 @@ package org.example.springbasic.service;
 
 import org.example.springbasic.repository.entity.Book;
 import org.example.springbasic.repository.jpa.BookRepository;
+import org.example.springbasic.service.model.BookModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,6 +90,9 @@ class BookServiceTest {
             assertEquals("title" + i, result.get(i).getTitle());
         }
         // BookRepository.findAll()が呼ばれたこと
+        verify(bookRepositoryMock).findAll();
+
+        // BookRepository.findAll()が1回だけ呼ばれたこと
         verify(bookRepositoryMock, times(1)).findAll();
     }
 
@@ -128,8 +132,11 @@ class BookServiceTest {
         var result = bookService.getBookList();
 
         // assert
-        // BookModelのリストが返却されること
+        // 結果がnullでないこと
         assertNotNull(result);
+        // List<BookModel>が返却されること
+        assertTrue(result instanceof List);
+
         // BookModelのリストの要素数が5であること
         assertEquals(5, result.size());
         // BookModelのリストの各要素のtitleが"テストタイトル" + iであること
@@ -144,6 +151,15 @@ class BookServiceTest {
             // BookRepository.findAll()が呼ばれたこと
             verify(bookRepository, times(1)).findAll();
         });
+
+        var ex = Assertions.assertThrows(Exception.class, () -> {
+            // BookRepository.findAll()が呼ばれたこと
+            verify(bookRepository).findAll();
+            // BookRepository.findAll()が1回だけ呼ばれたこと
+            verify(bookRepository, times(1)).findAll();
+        });
+        System.out.println(ex.getMessage());
+
 
         try {
             // BookRepository.findAll()が呼ばれたこと
@@ -172,17 +188,93 @@ class BookServiceTest {
     }
 
 
-
+    /**
+     * 正常系
+     * BookService.getBook()のテスト
+     * BookRepository.findById()のモックを作成し、Book(Entity)を返却する
+     * 期待値: BookModelが返却されること
+     * 期待値: BookModelのtitleが"ゲットタイトル"であること
+     * 期待値: BookRepository.findById()が1回だけ呼ばれたこと
+     */
     @Test
-    void getBook() {
+    void getBook_with_mock_success() {
+        // arrange
+        // Book(Entity)を作成
+        Book book = new Book();
+        // bookIdにUUIDを設定
+        book.setBookId("Id001");
+        // titleに"ゲットタイトル"を設定
+        book.setTitle("ゲットタイトル");
+
+        // BookRepository.findById()のモックを作成
+        // BookRepository.findById()が呼ばれたら、bookを返却する
+        when(bookRepositoryMock.findById("Id001"))
+                .thenReturn(java.util.Optional.of(book));
+
+        // BookServiceのインスタンスを作成
+        BookService bookService = new BookService(bookRepositoryMock);
+
+        // act
+        // BookService.getBook()を呼び出し
+        var result = bookService.getBook("Id001");
+
+        // assert
+        // BookModelが返却されること
+        assertNotNull(result);
+        // BookModelのtitleが"ゲットタイトル"であること
+        assertEquals("ゲットタイトル", result.getTitle());
+
+
+//        // BookRepository.findById()が1回だけ呼ばれたこと
+//        verify(bookRepositoryMock, times(1)).findById(book.getBookId());
+
     }
 
+    /**
+     * 正常系
+     * BookService.addBook()のテスト
+     * 既存のデータなし
+     * 期待値: BookModelが返却されること
+     * 期待値: 返却されたBookModelのbookIdが"test-id-add002"であること
+     * 期待値: 返却されたBookModelのtitleが"テスト書籍Add002"であること
+     * 期待値: 返却されたBookModelのpublishYearが2022であること
+     * 期待値: DBに登録されたBookModelのbookIdが"test-id-add002"であること
+     * 期待値: DBに登録されたBookModelのtitleが"テスト書籍Add002"であること
+     * 期待値: DBに登録されたBookModelのpublishYearが2022であること
+//     * 以下はモックを使わないとテストできない
+//     * 期待値: BookRepository.findById()が呼ばれたこと
+//     * 期待値: BookRepository.findById()が1回だけ呼ばれたこと
+//     * 期待値: BookRepository.save()が呼ばれたこと
+//     * 期待値: BookRepository.save()が1回だけ呼ばれたこと
+     */
     @Test
-    void addBook() {
+    void addBook_success() throws Exception {
+
     }
 
+
+    /**
+     * 異常系
+     * BookService.addBook()のテスト
+     * 既存のbookIdを持つBookModelを追加しようとした場合
+     * 期待値: 例外が発生すること
+     * 期待値: 例外のメッセージが"bookId is already exists"であること
+//     * 以下はモックを使わないとテストできない
+//     * 期待値: BookRepository.findById()が呼ばれたこと
+//     * 期待値: BookRepository.findById()が1回だけ呼ばれたこと
+//     * 期待値: BookRepository.save()が呼ばれないこと
+//     * 期待値: BookRepository.save()が0回呼ばれたこと
+     */
     @Test
-    void deleteBook() {
+    void addBook_existedBookId_returnException() {
+
+    }
+
+
+
+
+    @Test
+    void deleteBook_with_repository_success() {
     }
 
     @Test

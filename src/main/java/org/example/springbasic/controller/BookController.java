@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/books") // http:://localhost:8081/books  Get
 public class BookController {
 
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
