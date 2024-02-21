@@ -88,6 +88,7 @@ public class BookService implements IBookService{
                 // すでに蔵書がある場合は新規登録はできない
                 throw new Exception("bookId is already exists");
             }
+
         } else {
             bookModel.setBookId(UUID.randomUUID().toString());
             logger.info("bookIdをUUIDで生成 bookId: " + bookModel.getBookId());

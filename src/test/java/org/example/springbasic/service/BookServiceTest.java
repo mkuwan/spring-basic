@@ -249,6 +249,17 @@ class BookServiceTest {
      */
     @Test
     void addBook_success_by_yamaguchi() throws Exception {
+        // arrange: テストデータの準備
+        // 新規登録用のBookModelを作成する
+
+
+        // BookServiceのインスタンスを作成
+
+
+        // act: テスト対象(BookService.addBook(BookModel bookModel))の実行
+
+
+        // assert: 結果の検証
 
     }
 
@@ -290,9 +301,46 @@ class BookServiceTest {
      */
     @Test
     void addBook_success_by_nakano() throws Exception {
+        // arrange: テストデータの準備
+        // 新規登録用のBookModelを作成する
+        BookModel bookModel = new BookModel();
+        bookModel.setBookId("test-id-add002");
+        bookModel.setTitle("テスト書籍Add002");
+        bookModel.setPublishYear(2022);
 
+        // BookServiceのインスタンスを作成
+        BookService bookService = new BookService(bookRepository);
+
+        // act: テスト対象の実行
+        var bookModelResult = bookService.addBook(bookModel);
+
+        // assert: 結果の検証
+        assertEquals("test-id-add002",bookModelResult.getBookId());
+        assertEquals("テスト書籍Add002",bookModelResult.getTitle());
+        assertEquals(2022,bookModelResult.getPublishYear());
     }
 
+    /**
+     * 正常系
+     * BookService.addBook()のテスト
+     * Mockを使用してBookRepositoryをモック化
+     * 既存のデータなし
+     * 期待値: BookModelが返却されること
+     * 期待値: 返却されたBookModelのbookIdが"test-id-add002"であること
+     * 期待値: 返却されたBookModelのtitleが"テスト書籍Add002"であること
+     * 期待値: 返却されたBookModelのpublishYearが2022であること
+     * 期待値: DBに登録されたBookModelのbookIdが"test-id-add002"であること
+     * 期待値: DBに登録されたBookModelのtitleが"テスト書籍Add002"であること
+     * 期待値: DBに登録されたBookModelのpublishYearが2022であること
+     * 期待値: BookRepository.findById()が呼ばれたこと
+     * 期待値: BookRepository.findById()が1回だけ呼ばれたこと
+     * 期待値: BookRepository.save()が呼ばれたこと
+     * 期待値: BookRepository.save()が1回だけ呼ばれたこと
+     */
+    @Test
+    void addBook_success_with_mock_by_nakano() throws Exception {
+
+    }
 
     /**
      * 異常系
@@ -308,17 +356,61 @@ class BookServiceTest {
      */
     @Test
     void addBook_existedBookId_returnException_by_nakano() {
+        // arrange: テストデータの準備
+        // DBに既存データを登録する
+        Book book = new Book();
+        book.setBookId("test-id-add002");
+        book.setTitle("テスト書籍Add002");
+        book.setPublishYear(2022);
+        bookRepository.save(book);
 
+        // 新規登録用のBookModelを作成する
+        BookModel bookModel = new BookModel();
+        bookModel.setBookId("test-id-add002");
+        bookModel.setTitle("テスト書籍Add002");
+        bookModel.setPublishYear(2022);
+
+        // BookServiceのインスタンスを作成
+        BookService bookService = new BookService(bookRepository);
+
+        // act & assert: 例外が発生すること
+        Exception exception = assertThrows(Exception.class, () -> {
+            bookService.addBook(bookModel);
+        });
+        assertEquals("bookId is already exists", exception.getMessage());
+
+    }
+
+    /**
+     * 正常系
+     * BookService.updateBook()のテスト
+     * 既存データあり
+     *  bookId=test-id-update001, title=テスト書籍Base,
+     *  author=authorBase, publisher=publisherBase, publishYear=2000,
+     * 期待値: BookModelが返却されること
+     * 期待値: 返却されたBookModelのbookIdが"test-id-update001"であること
+     * 期待値: 返却されたBookModelのtitleが"テスト書籍Updated"であること
+     * 期待値: 返却されたBookModelのPublisherが"publisherUpdated"であること
+     * 期待値: 返却されたBookModelのpublishYearが2024であること
+     */
+    @Test
+    void updateBook_success_by_nakano() {
+    }
+
+    /**
+     * 異常系
+     * BookService.updateBook()のテスト
+     * 存在しないbookIdを持つBookModelを更新しようとした場合
+     * 期待値: 例外が発生すること
+     * 期待値: 例外のメッセージが"book is not exists"であること
+     */
+    @Test
+    void updateBook_not_exist_book_return_Exception_by_nakano() {
     }
 
 
 
-
     @Test
-    void deleteBook_with_repository_success() {
-    }
-
-    @Test
-    void updateBook() {
+    void deleteBook_success() {
     }
 }
