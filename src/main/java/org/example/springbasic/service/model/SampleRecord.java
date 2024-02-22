@@ -1,6 +1,9 @@
 package org.example.springbasic.service.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public record SampleRecord(String id, String name) {
 }
@@ -20,5 +23,11 @@ class SampleRecordCheck {
 
         System.out.println(sampleRecord.equals(sampleRecord2));
         System.out.println(sampleRecord == sampleRecord2);
+
+        assertEquals(sampleRecord.id(), "1");
+        assertEquals(sampleRecord.name(), "name");
+        assertEquals(sampleRecord.toString(), "SampleRecord[id=1, name=name]");
+        assertEquals(sampleRecord.hashCode(), sampleRecord2.hashCode());
+        assertEquals(sampleRecord, sampleRecord2);
     }
 }
