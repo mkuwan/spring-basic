@@ -4,8 +4,9 @@ import jdk.jshell.spi.ExecutionControl;
 
 public class CalcServiceSample {
 
-    public int add(int a, int b) throws Exception {
-        throw new ExecutionControl.NotImplementedException("未実装");
+    public int add(int a, int b)  {
+//        throw new ExecutionControl.NotImplementedException("未実装");
+        return a + b;
     }
 
     public int subtract(int a, int b) throws Exception {
