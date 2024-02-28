@@ -5,6 +5,7 @@ import org.example.springbasic.repository.jpa.BookRepository;
 import org.example.springbasic.service.model.BookModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -55,6 +56,7 @@ class BookServiceTest {
      * 期待値: BookModelのリストの各要素のtitleが"title" + iであること
      * 期待値: BookRepository.findAll()が呼ばれたこと
      */
+    @DisplayName("足し算のテスト。モックを使っています")
     @Test
     void getBookList_WithMock_Success() {
         // arrange
