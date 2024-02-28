@@ -130,6 +130,23 @@ class CalcServiceSampleTest {
 
     @Test
     void divide() {
+        //arrange
+        CalcServiceSample calcServiceSample = new CalcServiceSample();
+
+        //act
+        try {
+            System.out.println("割り算の前");
+            int result = calcServiceSample.divide(5,0);
+
+            System.out.println("割り算の後");
+        }
+        catch (Exception e){
+            //assertion
+            assertEquals("0で割ることはできません", e.getMessage());
+        }
+
+        System.out.println("例外発生した続き");
+
     }
 
     @Test
