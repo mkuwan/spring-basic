@@ -45,4 +45,28 @@ public class Sample_Animal {
         dog.sound();
     }
 
+    @Test
+    void test2() {
+        Animal dog = new Dog("ポチ");
+        System.out.println(dog.getName());
+        ((Food) dog).eat();
+        ((Voice) dog).sound();
+    }
+
+    @Test
+    void test3() {
+        Food dog = new Dog("ポチ");
+        ((Animal) dog).getName();
+        dog.eat();
+        ((Voice) dog).sound();
+    }
+
+    @Test
+    void test4() {
+        Voice dog = new Dog("ポチ");
+        ((Animal) dog).getName();
+        ((Food) dog).eat();
+        dog.sound();
+    }
+
 }
