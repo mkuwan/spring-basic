@@ -3,20 +3,31 @@ package org.example.springbasic.ood.polymorphism;
 import org.junit.jupiter.api.Test;
 
 public class Sample_Animal {
-
+    /**
+     * 抽象クラス
+     */
     abstract class Animal {
         String name;
         abstract String getName();
     }
 
+    /**
+     * インターフェース
+     */
     interface Food {
         void eat();
     }
 
+    /**
+     * インターフェース
+     */
     interface Voice {
         void sound();
     }
 
+    /**
+     * 抽象クラスとインターフェースの継承
+     */
     class Dog extends Animal implements Food, Voice {
         Dog(String name) {
             this.name = name;
