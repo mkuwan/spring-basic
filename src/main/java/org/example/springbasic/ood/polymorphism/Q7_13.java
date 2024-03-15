@@ -25,5 +25,4 @@ public class Q7_13 {
         worker = new Engineer();
         worker.work();
     }
-
 }
