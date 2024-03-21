@@ -25,6 +25,10 @@ public class Sample_Animal {
         void sound();
     }
 
+    interface Fake {
+        void fake();
+    }
+
     /**
      * 抽象クラスとインターフェースの継承
      */
@@ -47,6 +51,25 @@ public class Sample_Animal {
         }
     }
 
+    class Cat extends Animal implements Food, Voice {
+        Cat(String name) {
+            this.name = name;
+        }
+        @Override
+        String getName() {
+            return this.name;
+        }
+        @Override
+        public void eat() {
+            System.out.println("キャットフード");
+        }
+
+        @Override
+        public void sound() {
+            System.out.println("ニャーニャー");
+        }
+    }
+
 
     @Test
     void test() {
@@ -60,8 +83,12 @@ public class Sample_Animal {
     void test2() {
         Animal dog = new Dog("ポチ");
         System.out.println(dog.getName());
+
         ((Food) dog).eat();
+
         ((Voice) dog).sound();
+
+        ((Fake) dog).fake();
     }
 
     @Test
